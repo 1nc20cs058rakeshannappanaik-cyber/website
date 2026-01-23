@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Users, User, Crown, Watch, Flower, Zap, Droplet, MoreHorizontal } from 'lucide-react';
 
+
+//hello
 export default function Navigation() {
   const navigate = useNavigate();
   const categories = [
