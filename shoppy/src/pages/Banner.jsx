@@ -60,7 +60,7 @@ export default function Banner() {
   };
 
   return (
-    <div className="relative w-full h-96 overflow-hidden bg-gray-900">
+    <div className="relative w-full h-48 md:h-96 overflow-hidden bg-gray-900">
       {/* Carousel Container */}
       <div className="relative w-full h-full">
         {slides.map((slide, index) => (
@@ -77,9 +77,9 @@ export default function Banner() {
             />
             
             {/* Overlay and Text */}
-            <div className="absolute inset-0 flex flex-col justify-center items-center">
-              <h2 className="text-4xl font-bold text-white mb-2">{slide.title}</h2>
-              <p className="text-lg text-gray-100">{slide.description}</p>
+            <div className="absolute inset-0 flex flex-col justify-center items-center px-4">
+              <h2 className="text-xl md:text-4xl font-bold text-white mb-1 md:mb-2 text-center">{slide.title}</h2>
+              <p className="text-sm md:text-lg text-gray-100 text-center">{slide.description}</p>
             </div>
           </div>
         ))}
@@ -88,15 +88,15 @@ export default function Banner() {
       {/* Left Arrow */}
       <button
         onClick={goToPrevious}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 transition-all"
+        className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 z-30 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-1 md:p-2 transition-all"
       >
-        <ChevronLeft size={32} className="text-gray-900" />
+        <ChevronLeft size={20} className="md:w-8 md:h-8 w-5 h-5 text-gray-900" />
       </button>
 
       {/* Right Arrow */}
       <button
         onClick={goToNext}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 transition-all"
+        className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 z-30 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-1 md:p-2 transition-all"
       >
         <ChevronRight size={32} className="text-gray-900" />
       </button>

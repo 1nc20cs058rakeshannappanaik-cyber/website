@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Menu } from 'lucide-react';
 
 const Explore = () => {
   const [sortBy, setSortBy] = useState('Relevance');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const products = [
     {
@@ -81,25 +82,43 @@ const Explore = () => {
   ];
 
   return (
-    <div className="flex bg-gray-50 min-h-screen">
+    <div className="flex bg-gray-50 min-h-screen relative">
        
+      {/* Overlay for mobile menu */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       {/* Main Content */}
-      <div className="flex-1 p-6">
+      <div className="flex-1 p-4 md:p-6">
         {/* Header with Title and Sort */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Products For You</h1>
+          <div className="flex items-center justify-between gap-4 mb-4">
+            {/* Mobile Filter Button */}
+            <button
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="lg:hidden flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            >
+              <Menu size={20} />
+              <span className="text-sm">Filters</span>
+            </button>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Products For You</h1>
+          </div>
           
           {/* Sort Dropdown */}
-          <div className="flex items-center">
-            <span className="text-gray-600 font-medium mr-3">Sort by :</span>
-            <div className="relative inline-block">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
+            <span className="text-gray-600 font-medium text-sm">Sort by:</span>
+            <div className="relative inline-block w-full sm:w-auto">
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none px-4 py-2 pr-8 border border-gray-300 rounded-lg bg-white text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                className="appearance-none w-full sm:w-auto px-4 py-2 pr-8 border border-gray-300 rounded-lg bg-white text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer text-sm"
               >
                 <option>Relevance</option>
                 <option>Price: Low to High</option>
@@ -114,14 +133,14 @@ const Explore = () => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-6">
           {products.map((product) => (
             <div
               key={product.id}
               className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden cursor-pointer"
             >
               {/* Product Image */}
-              <div className="relative bg-gray-100 h-64 flex items-center justify-center overflow-hidden">
+              <div className="relative bg-gray-100 h-35 sm:h-48 md:h-64 flex items-center justify-center overflow-hidden">
                 <img
                   src={product.image}
                   alt={product.name}
@@ -130,13 +149,13 @@ const Explore = () => {
               </div>
 
               {/* Product Details */}
-              <div className="p-4">
-                <h3 className="text-sm font-medium text-gray-700 mb-2 line-clamp-2 hover:text-gray-900">
+              <div className="p-2 md:p-4">
+                <h3 className="text-xs md:text-sm font-medium text-gray-700 mb-2 line-clamp-2 hover:text-gray-900">
                   {product.name}
                 </h3>
 
                 {/* Price */}
-                <p className="text-xl font-bold text-gray-900 mb-2">
+                <p className="text-lg md:text-xl font-bold text-gray-900 mb-2">
                   {product.price}
                 </p>
 

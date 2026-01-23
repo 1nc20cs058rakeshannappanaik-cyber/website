@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, X } from 'lucide-react';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
   const [expandedCategory, setExpandedCategory] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState([]);
 
@@ -27,9 +27,19 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="w-80 bg-white p-6 shadow-sm">
+    <aside className={`${
+      isOpen ? 'translate-x-0' : '-translate-x-full'
+    } lg:translate-x-0 fixed lg:static top-0 left-0 w-80 bg-white p-6 shadow-sm lg:shadow-none h-screen lg:h-auto overflow-y-auto z-40 transition-transform duration-300`}>
+      {/* Mobile Close Button */}
+      <button
+        onClick={onClose}
+        className="lg:hidden absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+      >
+        <X size={24} />
+      </button>
+
       {/* Filters Header */}
-      <div className="mb-6">
+      <div className="mb-6 pt-8 lg:pt-0">
         <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">
           Filters
         </h2>

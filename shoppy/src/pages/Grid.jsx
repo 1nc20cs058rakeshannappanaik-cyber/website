@@ -41,16 +41,16 @@ const Grid = () => {
   ];
 
   return (
-    <div className="w-full px-6 py-12 bg-white">
+    <div className="w-full px-4 md:px-6 py-8 md:py-12 bg-white">
       {/* Header */}
-      <h2 className="text-3xl font-bold mb-8 text-gray-800">Top Picks for You</h2>
+      <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-gray-800">Top Picks for You</h2>
       
-      {/* Product Grid - 2 Rows */}
-      <div className="grid grid-cols-4 gap-6 md:grid-cols-4 lg:grid-cols-4">
+      {/* Product Grid - Responsive columns */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {products.map((product) => (
           <div key={product.id} className="bg-white rounded-lg shadow-md hover:scale-105 transition-shadow duration-300 overflow-hidden">
             {/* Product Image */}
-            <div className="relative bg-gray-100 h-64 flex items-center justify-center">
+            <div className="relative bg-gray-100 h-40 sm:h-48 md:h-64 flex items-center justify-center">
               <img 
                 src={product.image} 
                 alt={product.name}
@@ -59,13 +59,13 @@ const Grid = () => {
             </div>
             
             {/* Product Details */}
-            <div className="p-4">
-              <h3 className="text-sm font-medium text-gray-700 mb-2 line-clamp-2">
+            <div className="p-3 md:p-4">
+              <h3 className="text-xs md:text-sm font-medium text-gray-700 mb-2 line-clamp-2">
                 {product.name}
               </h3>
               
               {/* Price */}
-              <p className="text-xl font-bold text-gray-900 mb-2">
+              <p className="text-lg md:text-xl font-bold text-gray-900 mb-2">
                 {product.price}
               </p>
               
