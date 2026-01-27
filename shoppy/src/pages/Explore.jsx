@@ -1,85 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
-import { ChevronDown, Menu } from 'lucide-react';
+import { ChevronDown, Menu, Loader } from 'lucide-react';
 
 const Explore = () => {
   const [sortBy, setSortBy] = useState('Relevance');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const products = [
-    {
-      id: 1,
-      name: 'Superior Unique Lipstick...',
-      image:  '/src/assets/product1.jpg',
-      price: '₹138',
-      rating: 4.0,
-      reviews: '6021 Reviews',
-      delivery: 'Free Delivery'
-    },
-    {
-      id: 2,
-      name: 'Latest Attractive Women...',
-      image: '',
-      price: '₹154',
-      rating: 3.9,
-      reviews: '2150 Reviews',
-      delivery: 'Free Delivery'
-    },
-    {
-      id: 3,
-      name: 'Trimmers',
-      image: '',
-      price: '₹187',
-      rating: 4.0,
-      reviews: 'Supplier',
-      delivery: 'Free Delivery'
-    },
-    {
-      id: 4,
-      name: 'Bluetooth Headphones...',
-      image: '',
-      price: '₹298',
-      rating: 4.3,
-      reviews: '1178 Reviews',
-      delivery: 'Free Delivery'
-    },
-    {
-      id: 5,
-      name: 'Premium Wireless Earbuds',
-      image:  '/src/assets/product1.jpg',
-      price: '₹249',
-      rating: 4.2,
-      reviews: '3245 Reviews',
-      delivery: 'Free Delivery'
-    },
-    {
-      id: 6,
-      name: 'Smart Watch Pro',
-      image: '',
-      price: '₹299',
-      rating: 4.4,
-      reviews: '1890 Reviews',
-      delivery: 'Free Delivery'
-    },
-    {
-      id: 7,
-      name: 'Designer Sunglasses',
-      image: '',
-      price: '₹199',
-      rating: 4.1,
-      reviews: '2567 Reviews',
-      delivery: 'Free Delivery'
-    },
-    {
-      id: 8,
-      name: 'Stylish Backpack',
-      image: '',
-      price: '₹349',
-      rating: 4.5,
-      reviews: '4123 Reviews',
-      delivery: 'Free Delivery'
-    }
-  ];
+  // Fetch products from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Replace with your backend API endpoint
+        const response = await fetch('http://localhost:5000/api/products');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        setError('Failed to load products. Please try again later.');
+        // Fallback to empty array
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <div className="flex bg-gray-50 min-h-screen relative">
@@ -132,51 +89,75 @@ const Explore = () => {
           </div>
         </div>
 
+        {/* Loading State */}
+        {loading && (
+          <div className="flex flex-col items-center justify-center py-16">
+            <Loader className="animate-spin text-blue-600 mb-4" size={32} />
+            <p className="text-gray-600 font-medium">Loading products...</p>
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && !loading && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+            <p className="text-red-700 font-medium">{error}</p>
+          </div>
+        )}
+
         {/* Product Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-6">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden cursor-pointer"
-            >
-              {/* Product Image */}
-              <div className="relative bg-gray-100 h-35 sm:h-48 md:h-64 flex items-center justify-center overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
+        {!loading && !error && products.length > 0 && (
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-6">
+            {products.map((product) => (
+              <div
+                key={product.id}
+                className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden cursor-pointer"
+              >
+                {/* Product Image */}
+                <div className="relative bg-gray-100 h-35 sm:h-48 md:h-64 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={product.image || 'https://via.placeholder.com/300x300?text=No+Image'}
+                    alt={product.name}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
 
-              {/* Product Details */}
-              <div className="p-2 md:p-4">
-                <h3 className="text-xs md:text-sm font-medium text-gray-700 mb-2 line-clamp-2 hover:text-gray-900">
-                  {product.name}
-                </h3>
+                {/* Product Details */}
+                <div className="p-2 md:p-4">
+                  <h3 className="text-xs md:text-sm font-medium text-gray-700 mb-2 line-clamp-2 hover:text-gray-900">
+                    {product.name}
+                  </h3>
 
-                {/* Price */}
-                <p className="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                  {product.price}
-                </p>
+                  {/* Price */}
+                  <p className="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                    {typeof product.price === 'number' ? `₹${product.price}` : product.price}
+                  </p>
 
-                {/* Delivery */}
-                <p className="text-xs font-semibold text-green-600 mb-3">
-                  {product.delivery}
-                </p>
+                  {/* Delivery */}
+                  <p className="text-xs font-semibold text-green-600 mb-3">
+                    {product.delivery || 'Free Delivery'}
+                  </p>
 
-                {/* Rating */}
-                <div className="flex items-center gap-2">
-                  <span className="bg-green-600 text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                    {product.rating}★
-                  </span>
-                  <span className="text-xs text-gray-600">
-                    {product.reviews}
-                  </span>
+                  {/* Rating */}
+                  <div className="flex items-center gap-2">
+                    <span className="bg-green-600 text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                      {product.rating || 0}★
+                    </span>
+                    <span className="text-xs text-gray-600">
+                      {product.reviews || 'No reviews'}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!loading && products.length === 0 && !error && (
+          <div className="flex flex-col items-center justify-center py-16">
+            <p className="text-gray-500 font-medium text-lg">No products available</p>
+          </div>
+        )}
       </div>
      
     </div>
