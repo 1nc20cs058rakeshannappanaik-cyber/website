@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { ShoppingCart, LogIn, Search, UserCircle } from 'lucide-react';
 import Login from './Login';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const navigate = useNavigate();
  
 
   const handleSearch = (e) => {
@@ -60,7 +62,9 @@ export default function Header() {
             </button>
             
             {/* User Circle - Hidden on small mobile */}
-            <button className=" relative text-gray-700 hover:text-blue-600 transition-colors">
+            <button 
+              onClick={() => navigate('/profile')}
+              className="relative text-gray-700 hover:text-blue-600 transition-colors">
               <UserCircle size={20} />
             </button>
 

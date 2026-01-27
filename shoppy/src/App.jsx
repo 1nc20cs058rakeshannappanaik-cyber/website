@@ -6,6 +6,7 @@ import Banner from './pages/Banner';
 import Grid from './pages/Grid';
 import Footer from './pages/Footer';
 import Explore from './pages/Explore';
+import UserProfile from './pages/Userprofile';
 
 const Home = () => (
   <>
@@ -23,9 +24,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </Router>
   );
 };
 
 export default App;
+
