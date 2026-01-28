@@ -7,6 +7,7 @@ import Grid from './pages/Grid';
 import Footer from './pages/Footer';
 import Explore from './pages/Explore';
 import UserProfile from './pages/Userprofile';
+import Adminlogin from './pages/Adminlogin';
 
 const Home = () => (
   <>
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/adminlogin" element={<Adminlogin />} />
       </Routes>
     </Router>
   );
