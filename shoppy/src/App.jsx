@@ -8,13 +8,14 @@ import Footer from './pages/Footer';
 import Explore from './pages/Explore';
 import UserProfile from './pages/Userprofile';
 import Adminlogin from './pages/Adminlogin';
+import Productview from './pages/Productview';
 
 const Home = () => (
   <>
     <Navigation />
     <Banner />
     <Grid />
-    <Footer />
+   
   </>
 );
 
@@ -27,7 +28,9 @@ const App = () => {
         <Route path="/explore" element={<Explore />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/adminlogin" element={<Adminlogin />} />
+        <Route path="/productview" element={<Productview />} />
       </Routes>
+       <Footer />
     </Router>
   );
 };
