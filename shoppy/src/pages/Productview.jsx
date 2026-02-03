@@ -43,22 +43,21 @@ const Productview = () => {
         <div>
           {/* Buttons */}
           <div className="flex gap-4 mt-8">
-            <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-6 py-3 rounded shadow">
+            <button className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold px-6 py-3 rounded shadow">
               <ShoppingCart className="mr-2 inline-block" /> GO TO CART
             </button>
-            <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded shadow">
-              <CircleDollarSign className="mr-2 inline-block" />BUY NOW
-            </button>
+          <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded shadow">
+             <CircleDollarSign className="mr-2 inline-block" />BUY NOW </button>
           </div>
           {/* Offers */}
           <div className="mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-6">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
               Specifications
             </h2>
 
             {/* In The Box */}
             <div className="border-b pb-6 mb-6">
-              <h3 className="text-lg font-medium text-gray-800 mb-4">
+              <h3 className="text-xl font-medium text-gray-800 mb-4">
                 In The Box
               </h3>
 
@@ -73,7 +72,7 @@ const Productview = () => {
 
             {/* General */}
             <div>
-              <h3 className="text-lg font-medium text-gray-800 mb-4">
+              <h3 className="text-xl font-medium text-gray-800 mb-4">
                 General
               </h3>
 

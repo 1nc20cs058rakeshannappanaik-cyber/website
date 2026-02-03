@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { ShoppingCart, LogIn, Search, UserCircle } from 'lucide-react';
 import Login from './Login';
 import { useNavigate } from 'react-router-dom';
+import CartModal from './CartModal';
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const navigate = useNavigate();
  
 
@@ -54,7 +56,9 @@ export default function Header() {
             </button>
             
             {/* Cart Button */}
-            <button className="relative flex items-center text-gray-700 hover:text-blue-600 transition-colors">
+            <button 
+             onClick={() => setIsCartOpen(true)}
+            className="relative flex items-center text-gray-700 hover:text-blue-600 transition-colors">
               <ShoppingCart size={20} />
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                 0
@@ -76,6 +80,7 @@ export default function Header() {
 
       {/* Login Modal */}
       <Login isOpen={isLoginOpen} setIsOpen={setIsLoginOpen} />
+      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </header>
   );
 }
