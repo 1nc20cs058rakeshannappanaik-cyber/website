@@ -12,8 +12,8 @@ import Productview from './pages/Productview';
 
 const Home = () => (
   <>
+   <Banner />
     <Navigation />
-    <Banner />
     <Grid />
    
   </>

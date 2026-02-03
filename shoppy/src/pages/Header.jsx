@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingCart, LogIn, Search, UserCircle } from 'lucide-react';
+import { ShoppingCart, LogIn, Search, UserCircle, SearchIcon } from 'lucide-react';
 import Login from './Login';
 import { useNavigate } from 'react-router-dom';
 import CartModal from './CartModal';
@@ -18,8 +18,8 @@ export default function Header() {
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+        <div className="flex items-center justify-between h-12">
           
           {/* Brand Name - Left */}
           <div className="flex-shrink-0">
@@ -31,10 +31,11 @@ export default function Header() {
             <div className="relative w-full">
               <input
                 type="text"
-                placeholder="Search products..."
+                placeholder="Search for products, brands and more"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border-b border-gray-200 focus:outline-none focus:border-blue-600 bg-transparent"
+
               />
              
             </div>
@@ -42,16 +43,16 @@ export default function Header() {
 
           {/* Cart and Login - Right */}
           <div className="flex items-center space-x-3 md:space-x-6">
-            {/* Search Icon for Mobile */}
-            <button className="text-gray-700 hover:text-blue-600 transition-colors">
-              <Search size={20} />
-            </button>
-
-            {/* Login Button - Hidden on mobile */}
+          {/* Login Button - Hidden on mobile */}
             <button 
               onClick={() => setIsLoginOpen(true)}
-              className="hidden sm:flex items-center space-x-1 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors">
-              <LogIn size={20} />
+              className="hidden sm:flex items-center space-x-1 px-4 py-1 rounded-lg
+bg-red-100
+border border-red-300
+text-red-700
+hover:bg-red-200
+transition-colors">
+
               <span>Login</span>
             </button>
             
@@ -59,17 +60,17 @@ export default function Header() {
             <button 
              onClick={() => setIsCartOpen(true)}
             className="relative flex items-center text-gray-700 hover:text-blue-600 transition-colors">
-              <ShoppingCart size={20} />
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              <ShoppingCart size={22} />
+              {/* <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                 0
-              </span>
+              </span> */}
             </button>
             
             {/* User Circle - Hidden on small mobile */}
             <button 
               onClick={() => navigate('/profile')}
               className="relative text-gray-700 hover:text-blue-600 transition-colors">
-              <UserCircle size={20} />
+              <UserCircle size={22} />
             </button>
 
           </div>
