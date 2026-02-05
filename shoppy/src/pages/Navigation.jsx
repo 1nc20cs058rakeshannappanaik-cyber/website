@@ -32,8 +32,8 @@ export default function Navigation() {
                 className="flex flex-col items-center gap-1 md:gap-2 transition-transform hover:scale-110 focus:outline-none flex-shrink-0"
               >
                 {/* Image Container */}
-                <div className={`transition-all hover:shadow-lg`}>
-                  <img src={category.image} alt={category.label} className="md:w-20 md:h-20 w-12 h-12 object-cover rounded-lg" />
+                <div className={`transition-all hover:shadow-lg ${category.id % 2 === 0 ? 'mt-6 md:mt-7' : 'mt-1 md:mt-2'} hover:z-10`}>
+                  <img src={category.image} alt={category.label} className="md:w-26 md:h-26 w-16 h-16 object-cover rounded-lg" />
                 </div>
                 
                 {/* Label */}

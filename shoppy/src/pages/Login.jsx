@@ -117,10 +117,7 @@ const Login = ({ isOpen, setIsOpen, onOpenSignup }) => {
 
               {/* Remember Me & Forgot Password */}
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6">
-                <label className="flex items-center text-gray-600 text-sm">
-                  <input type="checkbox" className="mr-2" />
-                  <span>Remember me</span>
-                </label>
+               
                 <a href="#" className="text-blue-500 hover:text-blue-700 text-sm font-semibold">
                   Forgot Password?
                 </a>
