@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { ShoppingCart, LogIn, Search, UserCircle, SearchIcon } from 'lucide-react';
 import Login from './Login';
+import Signup from './Signup';
 import { useNavigate } from 'react-router-dom';
 import CartModal from './CartModal';
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const navigate = useNavigate();
  
@@ -80,8 +82,16 @@ transition-colors">
       </div>
 
       {/* Login Modal */}
-      <Login isOpen={isLoginOpen} setIsOpen={setIsLoginOpen} />
+      <Login
+        isOpen={isLoginOpen}
+        setIsOpen={setIsLoginOpen}
+        onOpenSignup={() => {
+          setIsLoginOpen(false);
+          setIsSignupOpen(true);
+        }}
+      />
       <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <Signup isOpen={isSignupOpen} setIsOpen={setIsSignupOpen} />
     </header>
   );
 }

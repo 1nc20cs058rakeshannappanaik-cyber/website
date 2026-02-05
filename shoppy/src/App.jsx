@@ -10,6 +10,7 @@ import UserProfile from './pages/Userprofile';
 import Adminlogin from './pages/Adminlogin';
 import Productview from './pages/Productview';
 
+
 const Home = () => (
   <>
    <Banner />
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/adminlogin" element={<Adminlogin />} />
         <Route path="/productview" element={<Productview />} />
+       
       </Routes>
        <Footer />
     </Router>

@@ -1,39 +1,41 @@
 import React, { useState } from 'react';
 
-
-const Login = ({ isOpen, setIsOpen, onOpenSignup }) => {
+const Signup = ({ isOpen, setIsOpen }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
- const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
   e.preventDefault();
 
-  if (!username || !password) {
-    alert("Please enter email and password");
+  if (!email || !password) {
+    alert("Please fill all required fields");
     return;
   }
 
   try {
-    const response = await customAxios.post("/login", {
-      email: username,     // backend expects email
-      password: password,  // string
+    const response = await customAxios.post("/signup", {
+      email: email,
+      password: password,
+      // add more fields if backend expects them
+      // name,
+      // phone
     });
 
-    console.log("Login success:", response.data);
+    console.log("Signup success:", response.data);
 
-    // Example: if backend returns token
+    alert("Account created successfully!");
+
+    // Optional: auto-login after signup
     // localStorage.setItem("token", response.data.token);
 
-    setUsername("");
-    setPassword("");
-    setIsOpen(false);
+    setIsOpen(false); // close signup modal
 
   } catch (error) {
-    console.error("Login failed:", error);
+    console.error("Signup failed:", error);
 
     const message =
       error.response?.data?.message ||
-      "Invalid email or password";
+      "Signup failed. Try again.";
 
     alert(message);
   }
@@ -56,7 +58,7 @@ const Login = ({ isOpen, setIsOpen, onOpenSignup }) => {
           {/* Left Side - Blue Section */}
           <div className="bg-blue-500 text-white p-6 md:p-12 w-full md:w-1/2 flex flex-col justify-between">
             <div>
-              <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">Login</h1>
+              <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">Sign Up</h1>
               <p className="text-sm md:text-lg text-blue-100 mb-4 md:mb-8">
                 Get access to your Orders, Wishlist and Recommendations
               </p>
@@ -84,7 +86,7 @@ const Login = ({ isOpen, setIsOpen, onOpenSignup }) => {
               ✕
             </button>
 
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleSignup}>
               {/* Username Input */}
               <div className="mb-6">
                 <label className="block text-gray-700 font-semibold mb-2 text-sm md:text-base">
@@ -115,43 +117,18 @@ const Login = ({ isOpen, setIsOpen, onOpenSignup }) => {
                 />
               </div>
 
-              {/* Remember Me & Forgot Password */}
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6">
-                <label className="flex items-center text-gray-600 text-sm">
-                  <input type="checkbox" className="mr-2" />
-                  <span>Remember me</span>
-                </label>
-                <a href="#" className="text-blue-500 hover:text-blue-700 text-sm font-semibold">
-                  Forgot Password?
-                </a>
-              </div>
+             
 
               {/* Login Button */}
               <button
                 type="submit"
                 className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition duration-300 mb-4 text-sm md:text-base"
               >
-                Login
+                Sign Up
               </button>
 
               {/* Sign Up Link */}
-              <p className="text-center text-gray-600 text-sm">
-                New to Shoppy?{' '}
-                <button
-  type="button"
-  onClick={() => {
-    if (typeof onOpenSignup === 'function') {
-      onOpenSignup();
-    } else {
-      // fallback: close this modal
-      setIsOpen(false);
-    }
-  }}
-  className="outline-none border-0 bg-transparent text-blue-500 hover:text-blue-700 font-semibold"
->
-  Create an account
-</button>
-              </p>
+             
             </form>
 
             {/* Terms & Conditions */}
@@ -172,4 +149,4 @@ const Login = ({ isOpen, setIsOpen, onOpenSignup }) => {
   );
 };
 
-export default Login;
+export default Signup;
